@@ -63,8 +63,8 @@ void actioncenter_applet::iconClicked()
     buttonWidget = new TQWidget(splitter);
     buttonLayout = new TQHBoxLayout(buttonWidget);
 
-button1State = (KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action1.sh check") == "1");
-button2State = (KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action2.sh check") == "1");
+//button1State = (KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action1.sh check") == "1");
+//button2State = (KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action2.sh check") == "1");
 
     addImageButton("/opt/trinity/share/apps/actioncenter_applet/action1.png", "/opt/trinity/share/apps/actioncenter_applet/action1_on.png", SLOT(button1Clicked()), button1State);
     addImageButton("/opt/trinity/share/apps/actioncenter_applet/action2.png", "/opt/trinity/share/apps/actioncenter_applet/action2_on.png", SLOT(button2Clicked()), button2State);
