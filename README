@@ -1,6 +1,6 @@
 !!! WORK in Progress - unfinished, not usuable now.
 
-usage: compile project
+testing: compile project
 copy libraries / .desktop files to proper locations
 create /opt/trinity/share/apps/actioncenter_applet folder and copy assets to it.
 copy appicon actioncenter.png to /opt/trinity/share/apps/kicker/pics
