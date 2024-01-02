@@ -1,0 +1,14 @@
+!!! WORK in Progress - unfinished, not usuable now.
+
+usage: compile project
+copy libraries / .desktop files to proper locations
+create /opt/trinity/share/apps/actioncenter_applet folder and copy assets to it.
+copy appicon actioncenter.png to /opt/trinity/share/apps/kicker/pics
+
+the first two actions buttons are meant to have off/on states, depending on the return value of the corresponding scripts (action1.sh / action2.sh) with check argument.
+the two other are just 'simple' shortcuts
+
+Problems now: 
+    1- retrieving the current proper states of the two first buttons (KRun::runCommand  doesn't seem appropriate for this)
+    2- panel background color
+To do: detecting update-manager icon in systray when updates are availables.
