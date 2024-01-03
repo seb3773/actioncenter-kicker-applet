@@ -2,7 +2,7 @@
 
 testing: compile project
 copy libraries / .desktop files to proper locations
-create /opt/trinity/share/apps/actioncenter_applet folder and copy assets to it.
+create /opt/trinity/share/apps/actioncenter_applet folder and copy assets to it + make the scripts executables.
 copy appicon actioncenter.png to /opt/trinity/share/apps/kicker/pics
 
 the first two actions buttons are meant to have off/on states, depending on the return value of the corresponding scripts (action1.sh / action2.sh) with check argument.
