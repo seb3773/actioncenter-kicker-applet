@@ -49,7 +49,18 @@ void actioncenter_applet::iconClicked()
 
     TQVBoxLayout *mainLayout = new TQVBoxLayout(customDialog);
 
-    TQLabel *textLabel = new TQLabel("Votre systeme est a jour.", customDialog);
+FILE* notifScript = popen("/opt/trinity/share/apps/actioncenter_applet/notif.sh", "r");
+    TQString notifText;
+    if (notifScript) {
+        char buffer[128];
+        while (fgets(buffer, sizeof(buffer), notifScript) != nullptr) {
+            notifText += TQString(buffer).stripWhiteSpace() + "\n";
+        }
+        pclose(notifScript);
+    }
+
+    // Créer et configurer le QLabel avec le texte du script
+    TQLabel *textLabel = new TQLabel(notifText, customDialog);
     textLabel->setAlignment(TQt::AlignHCenter | TQt::AlignVCenter);
     TQFont font = textLabel->font();
     font.setBold(true);
@@ -104,7 +115,7 @@ if (pipe2) {
     int dialogHeight = customDialog->height();
     int yPosition = screenHeight - dialogHeight;
     customDialog->move(xPosition, yPosition);
-    customDialog->setCaption("                             Action center");
+    customDialog->setCaption("Action center");
     customDialog->show();
 }
 
