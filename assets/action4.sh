@@ -1,2 +1,2 @@
 #!/bin/bash
-kcontrol &
+touch /tmp/.enabkcontr.stp && kcontrol &
