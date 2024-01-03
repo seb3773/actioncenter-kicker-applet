@@ -27,8 +27,10 @@ actioncenter_applet::actioncenter_applet(const TQString& configFile, Type type, 
     setFixedSize(icon.size().width() + 10, icon.size().height());
 
     connect(iconButton, SIGNAL(clicked()), this, SLOT(iconClicked()));
+
     mainView = iconButton;
     mainView->show();
+
 }
 
 actioncenter_applet::~actioncenter_applet()
@@ -102,7 +104,7 @@ if (pipe2) {
     int dialogHeight = customDialog->height();
     int yPosition = screenHeight - dialogHeight;
     customDialog->move(xPosition, yPosition);
-    customDialog->setCaption("Action center");
+    customDialog->setCaption("                             Action center");
     customDialog->show();
 }
 
@@ -143,11 +145,13 @@ void actioncenter_applet::button2Clicked()
 
 void actioncenter_applet::button3Clicked()
 {
+ customDialog->close();
     KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action3.sh");
 }
 
 void actioncenter_applet::button4Clicked()
 {
+ customDialog->close();
     KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action4.sh");
 }
 
@@ -174,6 +178,8 @@ int actioncenter_applet::getScreenWidth() const
 {
     return TDEApplication::desktop()->width();
 }
+
+
 
 extern "C"
 {

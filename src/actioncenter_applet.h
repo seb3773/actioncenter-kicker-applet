@@ -34,6 +34,7 @@ private slots:
     void button3Clicked();
     void button4Clicked();
 
+
 private:
     bool button1State;  
     bool button2State;  
