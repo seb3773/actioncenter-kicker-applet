@@ -37,8 +37,6 @@ private slots:
 private:
     bool button1State;  
     bool button2State;  
-    bool button3State;  
-    bool button4State;  
 
     TDEConfig *ksConfig;
     TQWidget *mainView;
@@ -46,13 +44,11 @@ private:
     TQWidget *buttonWidget;
     TQHBoxLayout *buttonLayout;
 
-    // Mettez à jour la déclaration de la méthode addImageButton
     void addImageButton(const char *imagePathOn, const char *imagePathOff, const char *slot, bool& buttonState);
-
-    // Ajoutez la déclaration de la nouvelle méthode addButton
     void addButton(const char *imagePath, const char *slot);
 
     int getScreenHeight() const;
+    int getScreenWidth() const;
 };
 
 #endif

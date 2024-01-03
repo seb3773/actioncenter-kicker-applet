@@ -16,8 +16,6 @@ actioncenter_applet::actioncenter_applet(const TQString& configFile, Type type, 
     : KPanelApplet(configFile, type, actions, parent, name),
       button1State(false),
       button2State(false),
-      button3State(false),
-      button4State(false),
       buttonWidget(nullptr),
       buttonLayout(nullptr)
 {
@@ -45,14 +43,17 @@ void actioncenter_applet::iconClicked()
     }
 
     customDialog = new TQDialog(this);
-    customDialog->setFixedSize(400, getScreenHeight());
+    customDialog->setFixedSize(getScreenWidth()*0.21, getScreenHeight());
 
     TQVBoxLayout *mainLayout = new TQVBoxLayout(customDialog);
 
     TQLabel *textLabel = new TQLabel("Votre systeme est a jour.", customDialog);
     textLabel->setAlignment(TQt::AlignHCenter | TQt::AlignVCenter);
+    TQFont font = textLabel->font();
+    font.setBold(true);
+    textLabel->setFont(font);
 
-    int textHeight = (customDialog->height() * 2) / 3;
+    int textHeight = (customDialog->height() * 0.67);
     textLabel->setFixedHeight(textHeight);
 
     mainLayout->addWidget(textLabel);
@@ -65,6 +66,26 @@ void actioncenter_applet::iconClicked()
 
 //button1State = (KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action1.sh check") == "1");
 //button2State = (KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action2.sh check") == "1");
+
+FILE* pipe1 = popen("/opt/trinity/share/apps/actioncenter_applet/action1.sh check", "r");
+if (pipe1) {
+    char buffer[128];
+    fgets(buffer, sizeof(buffer), pipe1);
+    pclose(pipe1);
+    button1State = (TQString(buffer).stripWhiteSpace() == "0");
+}
+
+FILE* pipe2 = popen("/opt/trinity/share/apps/actioncenter_applet/action2.sh check", "r");
+if (pipe2) {
+    char buffer[128];
+    fgets(buffer, sizeof(buffer), pipe2);
+    pclose(pipe2);
+    button2State = (TQString(buffer).stripWhiteSpace() == "0");
+}
+
+
+
+
 
     addImageButton("/opt/trinity/share/apps/actioncenter_applet/action1.png", "/opt/trinity/share/apps/actioncenter_applet/action1_on.png", SLOT(button1Clicked()), button1State);
     addImageButton("/opt/trinity/share/apps/actioncenter_applet/action2.png", "/opt/trinity/share/apps/actioncenter_applet/action2_on.png", SLOT(button2Clicked()), button2State);
@@ -147,6 +168,11 @@ void actioncenter_applet::resizeEvent(TQResizeEvent *e)
 int actioncenter_applet::getScreenHeight() const
 {
     return TDEApplication::desktop()->height();
+}
+
+int actioncenter_applet::getScreenWidth() const
+{
+    return TDEApplication::desktop()->width();
 }
 
 extern "C"
