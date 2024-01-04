@@ -42,14 +42,14 @@ private:
     TDEConfig *ksConfig;
     TQWidget *mainView;
     TQDialog *customDialog;
+
     TQWidget *buttonWidget;
     TQHBoxLayout *buttonLayout;
+    TQWidget *splitter;
 
     void addImageButton(const char *imagePathOn, const char *imagePathOff, const char *slot, bool& buttonState);
     void addButton(const char *imagePath, const char *slot);
-
     int getScreenHeight() const;
-   // int getScreenWidth() const;
 };
 
 #endif
