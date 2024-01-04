@@ -1,5 +1,4 @@
 // actioncenter_applet.cpp
-
 #include <tdeglobal.h>
 #include <tdelocale.h>
 #include <tdeapplication.h>
@@ -16,7 +15,9 @@ actioncenter_applet::actioncenter_applet(const TQString& configFile, Type type, 
     : KPanelApplet(configFile, type, actions, parent, name),
       button1State(false),
       button2State(false),
-      splitter(nullptr)
+      splitter(nullptr),
+      internalSplitter1(nullptr),
+      internalSplitter2(nullptr)
 {
     TQPixmap icon("/opt/trinity/share/apps/kicker/pics/actioncenter.png");
     TQPushButton *iconButton = new TQPushButton("", this);
@@ -65,8 +66,15 @@ void actioncenter_applet::iconClicked()
 
     mainLayout->addWidget(textLabel);
 
-    splitter = new TQSplitter(customDialog);
-    mainLayout->addWidget(splitter, 0, TQt::AlignHCenter | TQt::AlignVCenter);
+
+    TQSplitter *internalSplitter = new TQSplitter(customDialog);
+    TQSplitter *internalSplitter2 = new TQSplitter(internalSplitter);
+    TQSplitter *internalSplitter1 = new TQSplitter(internalSplitter);
+    internalSplitter->setOrientation(TQt::Vertical);  
+    internalSplitter->addWidget(internalSplitter2);
+    internalSplitter->addWidget(internalSplitter1);
+
+mainLayout->addWidget(internalSplitter, 0, TQt::AlignHCenter | TQt::AlignVCenter);
 
 FILE* pipe1 = popen("/opt/trinity/share/apps/actioncenter_applet/action1.sh check", "r");
 if (pipe1) {
@@ -84,10 +92,12 @@ if (pipe2) {
     button2State = (TQString(buffer).stripWhiteSpace() == "0");
 }
 
-addImageButton("/opt/trinity/share/apps/actioncenter_applet/action1.png", "/opt/trinity/share/apps/actioncenter_applet/action1_on.png", SLOT(button1Clicked()), button1State);
-addImageButton("/opt/trinity/share/apps/actioncenter_applet/action2.png", "/opt/trinity/share/apps/actioncenter_applet/action2_on.png", SLOT(button2Clicked()), button2State);
-addButton("/opt/trinity/share/apps/actioncenter_applet/action3.png", SLOT(button3Clicked()));
-addButton("/opt/trinity/share/apps/actioncenter_applet/action4.png", SLOT(button4Clicked()));
+    addImageButton("/opt/trinity/share/apps/actioncenter_applet/action1.png", "/opt/trinity/share/apps/actioncenter_applet/action1_on.png", SLOT(button1Clicked()), button1State, internalSplitter1);
+    addImageButton("/opt/trinity/share/apps/actioncenter_applet/action2.png", "/opt/trinity/share/apps/actioncenter_applet/action2_on.png", SLOT(button2Clicked()), button2State, internalSplitter1);
+    addButton("/opt/trinity/share/apps/actioncenter_applet/action3.png", SLOT(button3Clicked()), internalSplitter1);
+    addButton("/opt/trinity/share/apps/actioncenter_applet/action4.png", SLOT(button4Clicked()), internalSplitter1);
+    addButton("/opt/trinity/share/apps/actioncenter_applet/action5.png", SLOT(button5Clicked()), internalSplitter2);
+    addButton("/opt/trinity/share/apps/actioncenter_applet/action6.png", SLOT(button6Clicked()), internalSplitter2);
 
     int screenWidth = TDEApplication::desktop()->width();
     int dialogWidth = customDialog->width();
@@ -100,24 +110,25 @@ addButton("/opt/trinity/share/apps/actioncenter_applet/action4.png", SLOT(button
     customDialog->show();
 }
 
-void actioncenter_applet::addImageButton(const char *imagePathOn, const char *imagePathOff, const char *slot, bool &buttonState)
+void actioncenter_applet::addImageButton(const char *imagePathOn, const char *imagePathOff, const char *slot, bool &buttonState, TQWidget *parentWidget)
 {
     const char *imagePath = buttonState ? imagePathOff : imagePathOn;
     TQPixmap buttonIcon(imagePath);
-    TQPushButton *button = new TQPushButton("", splitter);
+    TQPushButton *button = new TQPushButton("", parentWidget);
     button->setPixmap(buttonIcon);
     button->setFixedSize(buttonIcon.size());
     connect(button, SIGNAL(clicked()), this, slot);
 }
 
-void actioncenter_applet::addButton(const char *imagePath, const char *slot)
+void actioncenter_applet::addButton(const char *imagePath, const char *slot, TQWidget *parentWidget)
 {
     TQPixmap buttonIcon(imagePath);
-    TQPushButton *button = new TQPushButton("", splitter);
+    TQPushButton *button = new TQPushButton("", parentWidget);
     button->setPixmap(buttonIcon);
     button->setFixedSize(buttonIcon.size());
     connect(button, SIGNAL(clicked()), this, slot);
 }
+
 
 
 
@@ -125,14 +136,14 @@ void actioncenter_applet::button1Clicked()
 {
     KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action1.sh");
     button1State = !button1State;
-    addImageButton("/opt/trinity/share/apps/actioncenter_applet/action1.png", "/opt/trinity/share/apps/actioncenter_applet/action1_on.png", SLOT(button1Clicked()), button1State);
+    addImageButton("/opt/trinity/share/apps/actioncenter_applet/action1.png", "/opt/trinity/share/apps/actioncenter_applet/action1_on.png", SLOT(button1Clicked()), button1State,internalSplitter1);
 }
 
 void actioncenter_applet::button2Clicked()
 {
     KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action2.sh");
     button2State = !button2State;
-    addImageButton("/opt/trinity/share/apps/actioncenter_applet/action2.png", "/opt/trinity/share/apps/actioncenter_applet/action2_on.png", SLOT(button2Clicked()), button2State);
+    addImageButton("/opt/trinity/share/apps/actioncenter_applet/action2.png", "/opt/trinity/share/apps/actioncenter_applet/action2_on.png", SLOT(button2Clicked()), button2State,internalSplitter1);
 }
 
 void actioncenter_applet::button3Clicked()
@@ -145,6 +156,17 @@ void actioncenter_applet::button4Clicked()
 {
  customDialog->close();
     KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action4.sh");
+}
+
+void actioncenter_applet::button5Clicked()
+{
+ customDialog->close();
+
+}
+void actioncenter_applet::button6Clicked()
+{
+ customDialog->close();
+
 }
 
 int actioncenter_applet::widthForHeight(int height) const
