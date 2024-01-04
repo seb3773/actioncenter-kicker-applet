@@ -45,7 +45,7 @@ void actioncenter_applet::iconClicked()
     }
 
     customDialog = new TQDialog(this);
-    customDialog->setFixedSize(getScreenWidth()*0.21, getScreenHeight());
+    customDialog->setFixedSize(400, getScreenHeight());
 
     TQVBoxLayout *mainLayout = new TQVBoxLayout(customDialog);
 
@@ -185,10 +185,10 @@ int actioncenter_applet::getScreenHeight() const
     return TDEApplication::desktop()->height();
 }
 
-int actioncenter_applet::getScreenWidth() const
-{
-    return TDEApplication::desktop()->width();
-}
+//int actioncenter_applet::getScreenWidth() const
+//{
+//    return TDEApplication::desktop()->width();
+//}
 
 
 

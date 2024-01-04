@@ -49,7 +49,7 @@ private:
     void addButton(const char *imagePath, const char *slot);
 
     int getScreenHeight() const;
-    int getScreenWidth() const;
+   // int getScreenWidth() const;
 };
 
 #endif
