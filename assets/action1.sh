@@ -1,47 +1,9 @@
 #!/bin/bash
-nightmode() {
-xrandr --output "$1" --gamma 1.0:0.9:0.90 --brightness 0.9
-xrandr --output "$1" --gamma 1.0:0.9:0.85 --brightness 0.9
-xrandr --output "$1" --gamma 1.0:0.85:0.80 --brightness 0.9
-xrandr --output "$1" --gamma 1.0:0.80:0.75 --brightness 0.8
-xrandr --output "$1" --gamma 1.0:0.80:0.70 --brightness 0.8
-xrandr --output "$1" --gamma 1.0:0.75:0.65 --brightness 0.8
-xrandr --output "$1" --gamma 1.0:0.75:0.60 --brightness 0.8
-xrandr --output "$1" --gamma 1.0:0.75:0.55 --brightness 0.7
-xrandr --output "$1" --gamma 1.0:0.75:0.50 --brightness 0.7
-xrandr --output "$1" --gamma 1.0:0.75:0.40 --brightness 0.7
-}
-daymode () {
-xrandr --output "$1" --gamma 1.0:0.75:0.50 --brightness 0.7
-xrandr --output "$1" --gamma 1.0:0.75:0.55 --brightness 0.7
-xrandr --output "$1" --gamma 1.0:0.75:0.60 --brightness 0.8
-xrandr --output "$1" --gamma 1.0:0.75:0.65 --brightness 0.8
-xrandr --output "$1" --gamma 1.0:0.80:0.70 --brightness 0.8
-xrandr --output "$1" --gamma 1.0:0.80:0.75 --brightness 0.8
-xrandr --output "$1" --gamma 1.0:0.85:0.80 --brightness 0.9
-xrandr --output "$1" --gamma 1.0:0.9:0.85 --brightness 0.9
-xrandr --output "$1" --gamma 1.0:0.9:0.90 --brightness 0.9
-xrandr --output "$1" --gamma 1:1:1 --brightness 1
-}
-brightness_value=$(xrandr --verbose | grep Brightness | cut -d ' ' -f 2)
-if [ "$1" == "check" ]; then
-if [ "$brightness_value" == "1.0" ]; then echo 1;exit
-elif [ "$brightness_value" == "0.70" ]; then echo 0;exit
-fi
-else
-connected_display_list=$(xrandr | grep ' connected' | awk '{print $1}')
-if [ "$brightness_value" == "1.0" ]; then
-for disp in $connected_display_list; do
-nightmode "$disp"
-done
-else
-for disp in $connected_display_list; do
-daymode "$disp"
-done
-fi
-fi
-
-
-
-
-
+night=("1:0.9:0.90" "1:0.9:0.85" "1:0.85:0.8" "1:0.80:0.75" "1:0.80:0.7" "1:0.75:0.65" "1:0.75:0.6" "1:0.75:0.55" "1:0.75:0.5" "1:0.75:0.4");nightb=("0.9" "0.9" "0.9" "0.8" "0.8" "0.8" "0.8" "0.7" "0.7" "0.7");day=("1:0.75:0.5" "1:0.75:0.55" "1:0.75:0.6" "1:0.75:0.65" "1:0.8:0.7" "1:0.8:0.75" "1:0.85:0.8" "1:0.9:0.85" "1:0.9:0.9" "1:1:1");dayb=("0.7" "0.7" "0.8" "0.8" "0.8" "0.8" "0.9" "0.9" "0.9" "1")
+getbr(){ local v=$(xrandr --verbose | grep Brightness | cut -d ' ' -f 2 | head -n 1);echo "$v";}
+apply(){ local mgam=("${!1}");local mbr=("${!2}");local condp=("${!3}")
+for ((i=0;i<${#mgam[@]};i++));do cmd=""
+for d in "${condp[@]}";do cmd+=" --output $d --gamma ${mgam[$i]} --brightness ${mbr[$i]}";done;xrandr $cmd;done;}
+vbr=$(getbr);if [ "$1" == "check" ];then if [ "$vbr" == "1.0" ];then echo 1;exit
+elif [ "$vbr" == "0.70" ];then echo 0;exit;fi;else condpl=($(xrandr | grep ' connected' | awk '{print $1}'))
+if [ "$vbr" == "1.0" ];then apply night[@] nightb[@] condpl[@];else apply day[@] dayb[@] condpl[@];fi;fi

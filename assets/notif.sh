@@ -1,5 +1,5 @@
 #!/bin/bash
-updates=0
+updates=1
 if [ $updates -eq 0 ]; then
 echo "Votre systeme est a jour."
 else
