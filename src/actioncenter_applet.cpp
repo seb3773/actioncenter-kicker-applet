@@ -9,7 +9,6 @@
 #include <tqlayout.h>
 #include <tqlabel.h>
 #include <tqsplitter.h>
-#include <kprocess.h>
 
 actioncenter_applet::actioncenter_applet(const TQString& configFile, Type type, int actions, TQWidget *parent, const char *name)
     : KPanelApplet(configFile, type, actions, parent, name),
@@ -30,6 +29,76 @@ actioncenter_applet::actioncenter_applet(const TQString& configFile, Type type, 
     mainView->show();
 }
 
+
+void actioncenter_applet::showNewPanel()
+{
+    newDialog = new TQDialog(this);
+    newDialog->setFixedSize(405, getScreenHeight());
+    TQVBoxLayout *mainLayout = new TQVBoxLayout(newDialog);
+    TQSplitter *projSplitter = new TQSplitter(newDialog);
+    projSplitter->setOrientation(TQt::Vertical);
+    mainLayout->addWidget(projSplitter, 0, TQt::AlignHCenter | TQt::AlignVCenter);
+    TQLabel *textLabel = new TQLabel(" ", newDialog);
+    int textHeight = (newDialog->height() * 0.55);
+    textLabel->setFixedHeight(textHeight);
+    mainLayout->addWidget(textLabel);
+    TQSplitter *splitter1 = new TQSplitter(projSplitter);
+    TQSplitter *splitter2 = new TQSplitter(projSplitter);
+    TQSplitter *splitter3 = new TQSplitter(projSplitter);
+    TQSplitter *splitter4 = new TQSplitter(projSplitter);
+
+TQWidget *button1Widget = new TQWidget(splitter1);
+button1Widget->setFixedWidth(405); 
+TQHBoxLayout *button1Layout = new TQHBoxLayout(button1Widget);
+TQLabel *textLabel1 = new TQLabel("Ecran du PC uniquement", button1Widget);
+textLabel1->setFixedWidth(195);
+button1Layout->addWidget(textLabel1);
+addButton("/opt/trinity/share/apps/actioncenter_applet/proj1.png", SLOT(button11Clicked()), button1Widget);
+button1Widget->setFixedHeight(80);
+splitter1->addWidget(button1Widget);
+
+TQWidget *button2Widget = new TQWidget(splitter2);
+button2Widget->setFixedWidth(405); 
+TQHBoxLayout *button2Layout = new TQHBoxLayout(button2Widget);
+TQLabel *textLabel2 = new TQLabel("Dupliquer", button2Widget);
+textLabel2->setFixedWidth(195);
+button2Layout->addWidget(textLabel2);
+addButton("/opt/trinity/share/apps/actioncenter_applet/proj2.png", SLOT(button12Clicked()), button2Widget);
+button2Widget->setFixedHeight(80);
+splitter2->addWidget(button2Widget);
+
+TQWidget *button3Widget = new TQWidget(splitter3);
+button3Widget->setFixedWidth(405);
+TQHBoxLayout *button3Layout = new TQHBoxLayout(button3Widget);
+TQLabel *textLabel3 = new TQLabel("Etendre", button3Widget);
+textLabel3->setFixedWidth(195);
+button3Layout->addWidget(textLabel3);
+addButton("/opt/trinity/share/apps/actioncenter_applet/proj3.png", SLOT(button13Clicked()), button3Widget);
+button3Widget->setFixedHeight(80);
+splitter3->addWidget(button3Widget);
+
+TQWidget *button4Widget = new TQWidget(splitter4);
+button4Widget->setFixedWidth(405);
+TQHBoxLayout *button4Layout = new TQHBoxLayout(button4Widget);
+TQLabel *textLabel4 = new TQLabel("Deuxieme ecran uniquement", button4Widget);
+textLabel4->setFixedWidth(195);
+button4Layout->addWidget(textLabel4);
+addButton("/opt/trinity/share/apps/actioncenter_applet/proj4.png", SLOT(button14Clicked()), button4Widget);
+button4Widget->setFixedHeight(80);
+splitter4->addWidget(button4Widget);
+
+    int screenWidth = TDEApplication::desktop()->width();
+    int dialogWidth = newDialog->width();
+    int xPosition = screenWidth - dialogWidth;
+    int screenHeight = TDEApplication::desktop()->height();
+    int dialogHeight = newDialog->height();
+    int yPosition = screenHeight - dialogHeight;
+    newDialog->move(xPosition, yPosition);
+    newDialog->setCaption("Projeter");
+    newDialog->show();
+}
+
+
 actioncenter_applet::~actioncenter_applet()
 {
 }
@@ -37,12 +106,19 @@ actioncenter_applet::~actioncenter_applet()
 
 void actioncenter_applet::iconClicked()
 {
+
+    if (newDialog  && newDialog->isVisible()) {
+        newDialog->close();
+        return;
+    }
+
     if (customDialog && customDialog->isVisible()) {
         customDialog->close();
         return;
     }
+
     customDialog = new TQDialog(this);
-    customDialog->setFixedSize(400, getScreenHeight());
+    customDialog->setFixedSize(405, getScreenHeight());
     TQVBoxLayout *mainLayout = new TQVBoxLayout(customDialog);
 
     FILE *notifScript = popen("/opt/trinity/share/apps/actioncenter_applet/notif.sh", "r");
@@ -65,7 +141,6 @@ void actioncenter_applet::iconClicked()
     textLabel->setFixedHeight(textHeight);
 
     mainLayout->addWidget(textLabel);
-
 
     TQSplitter *internalSplitter = new TQSplitter(customDialog);
     TQSplitter *internalSplitter2 = new TQSplitter(internalSplitter);
@@ -166,8 +241,34 @@ void actioncenter_applet::button5Clicked()
 void actioncenter_applet::button6Clicked()
 {
  customDialog->close();
-
+showNewPanel();
 }
+
+
+void actioncenter_applet::button11Clicked()
+{
+ newDialog->close();
+    KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/proj.sh pconly");
+}
+
+void actioncenter_applet::button12Clicked()
+{
+ newDialog->close();
+    KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/proj.sh duplicate");
+}
+
+void actioncenter_applet::button13Clicked()
+{
+ newDialog->close();
+    KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/proj.sh expand");
+}
+
+void actioncenter_applet::button14Clicked()
+{
+ newDialog->close();
+    KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/proj.sh 2ndonly");
+}
+
 
 int actioncenter_applet::widthForHeight(int height) const
 {

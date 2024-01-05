@@ -31,6 +31,10 @@ void button3Clicked();
 void button4Clicked();
 void button5Clicked();
 void button6Clicked();
+void button11Clicked();
+void button12Clicked();
+void button13Clicked();
+void button14Clicked();
 
 private:
 bool button1State;
@@ -38,14 +42,14 @@ bool button2State;
 TDEConfig *ksConfig;
 TQWidget *mainView;
 TQDialog *customDialog;
-TQWidget *buttonWidget;
-TQHBoxLayout *buttonLayout;
+TQDialog *newDialog;
 TQWidget *splitter;
 TQWidget *internalSplitter1;
 TQWidget *internalSplitter2;
 int getScreenHeight() const;
 void addImageButton(const char *imagePathOn, const char *imagePathOff, const char *slot, bool &buttonState, TQWidget *parentWidget);
 void addButton(const char *imagePath, const char *slot, TQWidget *parentWidget);
+void showNewPanel();
 
 };
 
