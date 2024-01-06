@@ -236,7 +236,7 @@ void actioncenter_applet::button4Clicked()
 void actioncenter_applet::button5Clicked()
 {
  customDialog->close();
-
+   KRun::runCommand("konsole --nomenubar --notabbar -e nmtui");
 }
 void actioncenter_applet::button6Clicked()
 {
