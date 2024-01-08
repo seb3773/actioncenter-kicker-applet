@@ -7,8 +7,9 @@ copy appicon actioncenter.png to /opt/trinity/share/apps/kicker/pics
 the first two actions buttons are meant to have off/on states, depending on the return value of the corresponding scripts (action1.sh / action2.sh) with check argument.
 the two other are just 'simple' shortcuts
 
-Problems now: 
+Problems/todo now: 
      - proper updating of the buttons images when clicked (doesn't work now)
      - panel background color
      - using something else than classic buttons (seticon ?..)
-To do: detecting update-manager icon in systray when updates are availables (notif.sh)
+     - detecting update-manager icon in systray when updates are availables (notif.sh)
+     - opening networkmanager gui instead of nmtui if possible
