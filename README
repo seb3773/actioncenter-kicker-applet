@@ -15,5 +15,5 @@ Problems/todo now:
      - proper updating of the buttons images when clicked (doesn't work now)
      - panel background color
      - using something else than classic buttons (seticon ?..)
-     - detecting update-manager icon in systray when updates are availables (notif.sh)
+     - better detecting of update-manager icon in systray- done with xdotool yet (notif.sh)
      - opening networkmanager gui instead of nmtui if possible
