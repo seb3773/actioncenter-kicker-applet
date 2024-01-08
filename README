@@ -9,7 +9,7 @@ create /opt/trinity/share/apps/actioncenter_applet folder and copy assets to it 
 copy appicon actioncenter.png to /opt/trinity/share/apps/kicker/pics
 
 The idea is that the actions are configurables, you can change the images & scripts associated with them. The first two actions buttons are meant to have off/on states, depending on the return value of the corresponding scripts (action1.sh / action2.sh) with check argument.
-the 3 others are just 'simple' shortcuts; Proj.sh is the script responsible for the dual display management, you can configure it for your needs; notif.sh is responsible for the message displayed, initially designed to display if there are updates available, but you can modify it to display whatever you want.
+the 3 others are just 'simple' shortcuts (you can edit action3.sh, action4.sh, action5.sh to change behavior) ; Proj.sh is the script responsible for the dual display management, you can configure it for your needs; notif.sh is responsible for the message displayed, initially designed to display if there are updates available, but you can modify it to display whatever you want.
 
 Problems/todo now: 
      - proper updating of the buttons images when clicked (doesn't work now)
