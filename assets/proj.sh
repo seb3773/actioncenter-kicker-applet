@@ -7,21 +7,9 @@ Etendre
 Deuxieme ecran uniquement"
 exit
 fi
-
-if [ "$1" == "pconly" ];then
-xrandr --output eDP-1 --auto --primary --output HDMI-1 --off
-fi
-
-if [ "$1" == "duplicate" ];then
-xrandr --output eDP-1 --auto --primary --output HDMI-1 --auto --same-as eDP-1
-#toggle (to do)
-#xrandr --output eDP-1 --auto --primary --output HDMI-1 --auto --same-as eDP-1
-fi
-
-if [ "$1" == "expand" ];then
-xrandr --output eDP-1 --auto --primary --output HDMI-1 --auto --left-of eDP-1
-fi
-
-if [ "$1" == "2ndonly" ];then
-xrandr --output eDP-1 --off --output HDMI-1 --auto
-fi
+p_disp=$(xrandr | grep -E '\b[[:alnum:]]+-[[:digit:]]+ connected primary' | awk '{print $1}')
+s_disp=$(xrandr | grep -E '\b[[:alnum:]]+-[[:digit:]]+ connected [^p]' | awk '{print $1}')
+if [ "$1" == "pconly" ];then xrandr --output $p_disp --auto --primary --output $s_disp --off;fi
+if [ "$1" == "duplicate" ];then xrandr --output $p_disp --auto --primary --output $s_disp --auto --same-as eDP-1;fi
+if [ "$1" == "expand" ];then xrandr --output $p_disp --auto --primary --output $s_disp --auto --left-of eDP-1;fi
+if [ "$1" == "2ndonly" ];then xrandr --output $p_disp --off --output $s_disp --auto;fi

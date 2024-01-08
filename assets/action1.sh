@@ -5,5 +5,5 @@ apply(){ local mgam=("${!1}");local mbr=("${!2}");local condp=("${!3}")
 for ((i=0;i<${#mgam[@]};i++));do cmd=""
 for d in "${condp[@]}";do cmd+=" --output $d --gamma ${mgam[$i]} --brightness ${mbr[$i]}";done;xrandr $cmd;done;}
 vbr=$(getbr);if [ "$1" == "check" ];then if [ "$vbr" == "1.0" ];then echo 1;exit
-elif [ "$vbr" == "0.70" ];then echo 0;exit;fi;else condpl=($(xrandr | grep ' connected' | awk '{print $1}'))
+elif [ "$vbr" == "0.70" ];then echo 0;exit;fi;else condpl=($(xrandr | grep -E ' connected( primary)? [0-9]+x[0-9]+' | awk '{print $1}'))
 if [ "$vbr" == "1.0" ];then apply night[@] nightb[@] condpl[@];else apply day[@] dayb[@] condpl[@];fi;fi
