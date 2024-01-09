@@ -172,7 +172,7 @@ if (pipe2) {
     addButton("/opt/trinity/share/apps/actioncenter_applet/action3.png", SLOT(button3Clicked()), internalSplitter1);
     addButton("/opt/trinity/share/apps/actioncenter_applet/action4.png", SLOT(button4Clicked()), internalSplitter1);
     addButton("/opt/trinity/share/apps/actioncenter_applet/action5.png", SLOT(button5Clicked()), internalSplitter2);
-    addButton("/opt/trinity/share/apps/actioncenter_applet/action6.png", SLOT(button6Clicked()), internalSplitter2);
+    addButton("/opt/trinity/share/apps/actioncenter_applet/proj.png", SLOT(button6Clicked()), internalSplitter2);
 
     int screenWidth = TDEApplication::desktop()->width();
     int dialogWidth = customDialog->width();
@@ -236,7 +236,8 @@ void actioncenter_applet::button4Clicked()
 void actioncenter_applet::button5Clicked()
 {
  customDialog->close();
-   KRun::runCommand("konsole --nomenubar --notabbar -e nmtui");
+   // KRun::runCommand("konsole --nomenubar --notabbar -e nmtui");
+    KRun::runCommand("/opt/trinity/share/apps/actioncenter_applet/action5.sh");
 }
 void actioncenter_applet::button6Clicked()
 {
