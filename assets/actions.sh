@@ -51,12 +51,18 @@ echo "Votre systeme est a jour."
 fi
 }
 
-if [ "$1" == "1" ];then action1;exit;fi
-if [ "$1" == "2" ];then action2;exit;fi
-if [ "$1" == "3" ];then action3;exit;fi
-if [ "$1" == "4" ];then action4;exit;fi
-if [ "$1" == "5" ];then action5;exit;fi
-
+checkstates(){
 action1 check
 action2 check
 notif
+}
+
+case "$1" in
+1) action1 ;;
+2) action2 ;;
+3) action3 ;;
+4) action4 ;;
+5) action5 ;;
+*) checkstates ;;
+esac
+exit
