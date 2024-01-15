@@ -4,9 +4,9 @@ It's a windows 10 "notification center" clone applet for Trinity kicker. As the 
 
 
 testing: compile project
-copy libraries / .desktop files to proper locations
-create /opt/trinity/share/apps/actioncenter_applet folder and copy assets to it + make the scripts executables.
-copy appicon actioncenter.png to /opt/trinity/share/apps/kicker/pics
+- copy libraries / .desktop files to proper locations
+- create /opt/trinity/share/apps/actioncenter_applet folder and copy assets to it + make the two scripts actions.sh and proj.sh executables.
+- copy appicon actioncenter.png to /opt/trinity/share/apps/kicker/pics
 
 The idea is that the actions are configurables, you can change the images & scripts associated with them. The first two actions buttons are meant to have off/on states, depending on the returned values of the actions.sh scripts (called with no argument)
 the 3 others are just 'simple' shortcuts (you can edit actions.sh to change behavior) ; actions.sh is responsible too for the message displayed, initially designed to display if there are updates available, but you can modify it to display whatever you want.
