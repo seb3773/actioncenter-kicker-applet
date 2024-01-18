@@ -18,7 +18,7 @@ actioncenter_applet::actioncenter_applet(const TQString& configFile, Type type, 
       internalSplitter1(nullptr),
       internalSplitter2(nullptr)
 {
-    TQPixmap icon("/opt/trinity/share/apps/kicker/pics/actioncenter.png");
+    TQPixmap icon("/opt/trinity/share/apps/actioncenter_applet/actioncenter.png");
     TQPushButton *iconButton = new TQPushButton("", this);
     iconButton->setIcon(icon);
     iconButton->setIconSet(icon);
