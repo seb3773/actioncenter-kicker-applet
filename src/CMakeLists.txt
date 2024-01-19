@@ -12,7 +12,7 @@ link_directories(
 
 ### actioncenter_applet (plugin) ###############################################
 tde_add_kpart(actioncenter_panelapplet AUTOMOC
-  SOURCES actioncenter_applet.cpp
+  SOURCES actioncenter_applet.cpp action_tile.cpp
   LINK tdecore-shared tdeui-shared tdeio-shared
   DESTINATION ${PLUGIN_INSTALL_DIR}
 )
