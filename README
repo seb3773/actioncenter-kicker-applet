@@ -20,5 +20,6 @@ Problems/todo now:
      - better detecting of update-manager icon in systray- done with xdotool yet
      - opening networmanager gui without the need of xdotool ?
 
-![Alt text](/screenshots/actioncenter-min.gif "video demo:")
+![Alt text](https://github.com/seb3773/actioncenter-kicker-applet/blob/main/screenshots/actioncenter-min.gif "video demo:")
+
 
