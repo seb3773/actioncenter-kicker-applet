@@ -1,0 +1,5 @@
+tde_l10n_create_template("messages/actioncenter_panelapplet")
+tde_l10n_create_template(
+  CATALOG "desktop_files/actioncenter_panelapplet-desktops"
+  SOURCES *.desktop
+)

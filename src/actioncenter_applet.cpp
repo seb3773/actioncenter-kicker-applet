@@ -1,14 +1,17 @@
 // actioncenter_applet.cpp
-#include <tdeglobal.h>
-#include <tdelocale.h>
-#include <tdeapplication.h>
-#include <tqpixmap.h> 
-#include "actioncenter_applet.h"
-#include <krun.h>
+
+#include <tqpixmap.h>
 #include <tqdialog.h>
 #include <tqlayout.h>
 #include <tqlabel.h>
-#include <tqsplitter.h>
+#include <tqsplitter.h> 
+
+#include <tdeapplication.h>
+#include <tdeglobal.h>
+#include <tdelocale.h>
+#include <krun.h>
+
+#include "actioncenter_applet.h"
 
 actioncenter_applet::actioncenter_applet(const TQString& configFile, Type type, int actions, TQWidget *parent, const char *name)
     : KPanelApplet(configFile, type, actions, parent, name),
@@ -294,7 +297,9 @@ extern "C"
 {
     KPanelApplet* init(TQWidget *parent, const TQString& configFile)
     {
-        TDEGlobal::locale()->insertCatalogue("actioncenter_applet");
-        return new actioncenter_applet(configFile, KPanelApplet::Normal, 0, parent, "actioncenter_applet");
+        TDEGlobal::locale()->insertCatalogue("actioncenter_panelapplet");
+        return new actioncenter_applet(configFile, KPanelApplet::Normal, 0, parent, "actioncenter_panelapplet");
     }
 }
+
+#include "actioncenter_applet.moc"
