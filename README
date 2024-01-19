@@ -15,7 +15,7 @@ Proj.sh is the script responsible for the dual display management, you can confi
 **xdotool needed for now (sudo apt install xdotool)
 Problems/todo now: 
      - proper updating of the buttons images when clicked (doesn't work now)
-     - panel background color
-     - using something else than classic buttons (seticon ?..)
+     - panel background color (I want it to follow titlebar color configured in theme); maybe not displaying it as a "real" windows too.
+     - using something else than classic buttons
      - better detecting of update-manager icon in systray- done with xdotool yet
      - opening networmanager gui without the need of xdotool ?
