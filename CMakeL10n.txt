@@ -1,0 +1,4 @@
+cmake_minimum_required(VERSION 3.5)
+
+include(TDEL10n)
+tde_l10n_auto_add_subdirectories()

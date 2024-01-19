@@ -1,9 +1,11 @@
 // actioncenter_applet.h
 #ifndef ACTIONCENTER_APPLET_H
 #define ACTIONCENTER_APPLET_H
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+
 #include <kpanelapplet.h>
 #include <tqstring.h>
 #include <tqlayout.h> 
