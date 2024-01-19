@@ -19,3 +19,5 @@ Problems/todo now:
      - using something else than classic buttons
      - better detecting of update-manager icon in systray- done with xdotool yet
      - opening networmanager gui without the need of xdotool ?
+
+![Alt text](/screenshots/actioncenter_min.gif?raw=true "video demo:")
